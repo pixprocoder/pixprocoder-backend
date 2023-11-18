@@ -1,0 +1,67 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// User model represents the authors of the blog posts
+model User {
+  id        Int      @id @default(autoincrement())
+  username  String
+  email     String   @unique
+  password  String // You should hash passwords for security
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  // Add any other fields you need for user profiles
+
+  @@map("users")
+}
+
+// Category model represents the categories of your blog posts
+model Category {
+  id        Int      @id @default(autoincrement())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("categories")
+}
+
+// Tag model represents tags that can be associated with blog posts
+model Tag {
+  id        String   @id @default(uuid())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("tags")
+}
+
+// Post model represents individual blog posts
+model Post {
+  id        Int      @id @default(autoincrement())
+  title     String
+  image     String?
+  content   String
+  slug      String   @unique
+  published Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  // userId     Int
+  // categoryId Int?
+
+  // Define relationships with other models
+  // author      User      @relation(fields: [userId], references: [id])
+  // category    Category? @relation(fields: [categoryId], references: [id])
+
+  // Tags are associated with a post using a many-to-many relationship
+  // tags        Tag[]     @relation("PostTag", references: [id])
+
+  @@map("posts")
+}
