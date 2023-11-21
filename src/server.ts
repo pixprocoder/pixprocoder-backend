@@ -1,11 +1,26 @@
-import express from "express";
-const app = express();
-const port = process.env.PORT || 3001;
+import app from "./app";
+import config from "./config";
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
+async function bootstrap() {
+  const server = app.listen(config.port, () => {
+    console.log(`server is running on port ${config.port}`);
+  });
+  const exitHandler = () => {
+    if (server) {
+      server.close(() => {
+        console.info("Server closed");
+      });
+    }
+    process.exit(1);
+  };
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
-});
+  const unexpectedErrorHandler = (error: unknown) => {
+    console.error(error);
+    exitHandler();
+  };
+
+  process.on("uncaughtException", unexpectedErrorHandler);
+  process.on("unhandledRejection", unexpectedErrorHandler);
+}
+
+bootstrap();
