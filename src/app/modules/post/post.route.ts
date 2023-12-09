@@ -3,6 +3,8 @@ import { PostsController } from "./post.controller";
 
 const router = express.Router();
 
-router.post("/", PostsController.insertPostIntoDB);
+router.get("/", PostsController.getPostFromDB);
+router.get("/:id", PostsController.getPostById);
+router.post("/create-post", PostsController.insertPostIntoDB);
 
 export const PostsRoutes = router;
