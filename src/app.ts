@@ -12,6 +12,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/v1", routes);
+app.get("/", (req, res) => {
+  res.send("Hello world");
+});
 
 //handle not found
 app.use((req: Request, res: Response, next: NextFunction) => {

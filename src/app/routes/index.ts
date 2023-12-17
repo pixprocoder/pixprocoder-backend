@@ -5,6 +5,7 @@ const router = express.Router();
 
 const moduleRoutes = [
   // routes
+
   {
     path: "/posts",
     route: PostsRoutes,
