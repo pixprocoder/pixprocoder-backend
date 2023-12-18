@@ -1,5 +1,5 @@
 import cors from "cors";
-import express, { Application, NextFunction, Request, Response } from "express";
+import express, { Application, Request, Response } from "express";
 
 import routes from "./app/routes";
 
@@ -12,12 +12,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/v1", routes);
-app.get("/", (req, res) => {
-  res.send("Hello world");
-});
 
 //handle not found
-app.use((req: Request, res: Response, next: NextFunction) => {
+app.use((req: Request, res: Response) => {
   res.status(404).json({
     success: false,
     message: "Not Found",
@@ -28,7 +25,10 @@ app.use((req: Request, res: Response, next: NextFunction) => {
       },
     ],
   });
-  next();
+});
+
+app.get("/", (req, res) => {
+  res.send("Hello world");
 });
 
 export default app;
