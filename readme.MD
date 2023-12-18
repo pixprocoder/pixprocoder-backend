@@ -1,7 +1,25 @@
-## This is my backend
+## This is my pixprocoder backend
 
-### Technologies
+I have created this backend by my own. I am implementing new features every time.
 
-- node.js (express)
-- postgresql (prisma)
-- typescript
+## client side repo:
+
+(https://github.com/pixprocoder/pixprocoder).
+
+## Features
+
+- user can login and signup
+-
+
+## Technologies
+
+- node.js
+- Express.js
+- postgresql (Database)
+- Prisma (ORM)
+- Typescript
+- Firebase (authentication)
+
+## Architecture
+
+- MVC
